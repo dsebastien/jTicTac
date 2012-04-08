@@ -27,7 +27,7 @@
         <developer>
             <id>dSebastien</id>
             <name>Dubois Sebastien</name>
-			<url>http://www.dsebastien.net</url>
+            <url>http://www.dsebastien.net</url>
             <timezone>+1</timezone>
             <roles>
                 <role>developer</role>
@@ -54,6 +54,7 @@
 
         <!-- Apache Commons -->
         <version.commons-lang>3.1</version.commons-lang>
+        <version.commons-configuration>1.8</version.commons-configuration>
         <version.commons-io>2.2</version.commons-io>
         <version.commons-codec>1.6</version.commons-codec>
         <!--
@@ -212,6 +213,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>${version.commons-lang}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${version.commons-configuration}</version>
+        </dependency>
+
 
         <!-- Logging -->
         <dependency>

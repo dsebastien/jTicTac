@@ -1,12 +1,3 @@
-# JNLP config:
-password: fCVd4SHB3c!
-name: Sebastien Dubois
-organizational unit: dsebastien.net
-organization: -
-city: Jurbise
-State: Hainaut
-country: BE
-
 # How to set up dev env:
 * Download/install Java Fx 2 SDK
 * Maven settings.xml (adapt path):
@@ -28,3 +19,11 @@ country: BE
 * Java Fx @ local Maven repo: http://stackoverflow.com/questions/7105660/javafx-2-0-netbeans-maven
 * Copy Java Fx dlls from install\rt\bin to mvn repository (com > oracle > ...)
 
+# JNLP config:
+* password: fCVd4SHB3c!
+* name: Sebastien Dubois
+* organizational unit: dsebastien.net
+* organization: -
+* city: Jurbise
+* State: Hainaut
+* country: BE
