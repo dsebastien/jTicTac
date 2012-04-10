@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import java.awt.*;
 import java.io.File;
 
 public class Configuration {
@@ -25,9 +26,12 @@ public class Configuration {
 
     private TimeSheet timeSheet;
 
-    private final static String CONFIG_DATA_FILE_PATH = "data.file.path";
+    private final static String CONFIG_PATH_DATA_FILE = "path.data.file";
     private final static String CONFIG_FILE = "config.properties";
     private final static String CONFIG_DATETIME_PATTERN = "datetime.pattern";
+    private final static String CONFIG_PATH_SYSTEM_TRAY_ICON = "path.system.tray.icon";
+    private final static String CONFIG_APPLICATION_NAME = "application.name";
+    private final static String CONFIG_APPLICATION_VERSION = "application.version";
     
     private Configuration(){
         LOGGER.info("Loading configuration");
@@ -51,9 +55,21 @@ public class Configuration {
     public static Configuration getInstance(){
         return INSTANCE;
     }
+    
+    public String getApplicationName(){
+        return config.getString(CONFIG_APPLICATION_NAME);
+    }
+
+    public String getApplicationVersion(){
+        return config.getString(CONFIG_APPLICATION_VERSION);
+    }
 
     public File getDataFile(){
-        return new File(config.getString(CONFIG_DATA_FILE_PATH));
+        return new File(config.getString(CONFIG_PATH_DATA_FILE));
+    }
+    
+    public Image getSystemTrayIcon(){
+        return Toolkit.getDefaultToolkit().getImage(config.getString(CONFIG_PATH_SYSTEM_TRAY_ICON));
     }
     
     public String getDateTimePattern(){
@@ -83,6 +99,11 @@ public class Configuration {
         return timeSheet;
     }
 
+    /**
+     * Save the given timesheet to the configured location.
+     * @param timeSheet the timesheet to save
+     * @return true if success, false otherwise
+     */
     public boolean saveTimeSheet(final TimeSheet timeSheet){
         boolean retVal = true;
         try {

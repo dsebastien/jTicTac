@@ -18,6 +18,7 @@
 
 * Java Fx @ local Maven repo: http://stackoverflow.com/questions/7105660/javafx-2-0-netbeans-maven
 * Copy Java Fx dlls from install\rt\bin to mvn repository (com > oracle > ...)
+* Download install the scene editor: http://www.oracle.com/technetwork/java/javafx/tools/index.html
 
 # JNLP config:
 * password: fCVd4SHB3c!

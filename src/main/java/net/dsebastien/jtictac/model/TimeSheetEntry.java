@@ -12,13 +12,27 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+/**
+ * An entry in the timesheet.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TimeSheetEntry {
+    /**
+     * The task corresponding to this entry (e.g., Programming, Chat, Sleep, ...)
+     */
     @XmlAttribute
     private String task;
+
+    /**
+     * How long the task has been performed.
+     */
     @XmlAttribute
     @XmlJavaTypeAdapter(DurationXmlAdapter.class)
     private Duration duration;
+
+    /**
+     * When the task was performed.
+     */
     @XmlAttribute
     @XmlJavaTypeAdapter(DateTimeXmlAdapter.class)
     private DateTime date;

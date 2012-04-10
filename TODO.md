@@ -1,0 +1,27 @@
+- GUI
+    - fill the table
+    - make the table sortable
+    - add entry: task, duration, (current date)
+    - add entry: task, duration, date
+    - add entry: task, (whole day), (current date)
+    - smart/quick add entry: textfield + tags
+    - task: auto completion --> http://blog.ngopal.com.np/2011/07/04/autofill-textbox-with-filtermode-in-javafx-2-0-custom-control/
+        - store list in text file next to the data (or also xml?)
+- add global hotkeys
+    - add task
+    - show/hide GUI
+    - exit
+    - copy timesheet data to clipboard
+- system tray
+    - change menu
+        - add "save"
+        - add "reload"
+        - add "copy timesheet data to clipboard"
+    - change icon
+- add templates for timesheet entries
+- add toString
+- add hashCode
+- add equals
+- add "About..." screen
+- add tray messages when saving, when loaded, etc
+- add autoupdater
