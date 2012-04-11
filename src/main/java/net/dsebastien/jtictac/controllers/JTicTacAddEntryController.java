@@ -15,7 +15,8 @@ import org.slf4j.LoggerFactory;
  * @author Sebastien Dubois -- dSebastien
  */
 public class JTicTacAddEntryController implements Initializable {
-    Logger LOGGER = LoggerFactory.getLogger(JTicTacAddEntryController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JTicTacAddEntryController.class);
+
     @FXML
     private TextField txtTask;
 

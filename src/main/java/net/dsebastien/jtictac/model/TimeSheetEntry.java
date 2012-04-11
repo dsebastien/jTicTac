@@ -1,41 +1,53 @@
 package net.dsebastien.jtictac.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import net.dsebastien.jtictac.config.Configuration;
 import net.dsebastien.jtictac.utils.DateTimeXmlAdapter;
 import net.dsebastien.jtictac.utils.DurationXmlAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * An entry in the timesheet.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class TimeSheetEntry {
     /**
      * The task corresponding to this entry (e.g., Programming, Chat, Sleep, ...)
      */
-    @XmlAttribute
     private String task;
 
     /**
      * How long the task has been performed.
      */
-    @XmlAttribute
-    @XmlJavaTypeAdapter(DurationXmlAdapter.class)
     private Duration duration;
 
     /**
      * When the task was performed.
      */
-    @XmlAttribute
-    @XmlJavaTypeAdapter(DateTimeXmlAdapter.class)
     private DateTime date;
+
+    /**
+     * Callback automatically invoked by JAXB after unmarshalling is over.
+     * Doc: http://docs.oracle.com/javase/6/docs/api/javax/xml/bind/Unmarshaller.html#unmarshalEventCallback
+     * @param unmarshaller
+     * @param parent
+     */
+    void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
+    }
 
     public TimeSheetEntry(){
     }
@@ -55,19 +67,20 @@ public class TimeSheetEntry {
         return this;
     }
 
-    public DateTime getDate(){
-        return date;
-    }
-    
-    public String getDateAsString(final DateTimeFormatter dateTimeFormatter){
-        return date.toString(dateTimeFormatter);
+    @XmlAttribute
+    public String getTask(){
+        return task;
     }
 
+    @XmlAttribute
+    @XmlJavaTypeAdapter(DurationXmlAdapter.class)
     public Duration getDuration(){
         return duration;
     }
 
-    public String getTask(){
-        return task;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(DateTimeXmlAdapter.class)
+    public DateTime getDate(){
+        return date;
     }
 }

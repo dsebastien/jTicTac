@@ -27,7 +27,6 @@ import java.net.URL;
 public class JTicTac extends Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(JTicTac.class);
     private boolean isVisible = false;
-    private TimeSheet timeSheet;
 
     public static void main(String[] args) {
         Application.launch(JTicTac.class, args);
@@ -35,7 +34,7 @@ public class JTicTac extends Application {
 
     public JTicTac(){
         // initialize the timesheet
-        timeSheet = Configuration.getInstance().loadTimeSheet();
+        Configuration.getInstance().loadTimeSheet();
     }
 
     @Override

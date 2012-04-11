@@ -1,16 +1,15 @@
 # How to set up dev env:
 * Download/install Java Fx 2 SDK
 * Maven settings.xml (adapt path):
-
-	 <profile>
+    ...	 
+    <profile>
       <id>javafx</id>
       <properties>
         <javafx.rt.jar>.../JavaFX 2.0 SDK/rt/lib/jfxrt.jar</javafx.rt.jar>
         <ant.javafx.jar>../JavaFX 2.0 SDK/tools/ant-javafx.jar</ant.javafx.jar>
       </properties>
     </profile>
-
-	</profiles>
+    ...
 	<activeProfiles>
 		...
 		<activeProfile>javafx</activeProfile>
@@ -28,3 +27,6 @@
 * city: Jurbise
 * State: Hainaut
 * country: BE
+
+# Links
+* FXML reference: http://fxexperience.com/wp-content/uploads/2011/08/Introducing-FXML.pdf
