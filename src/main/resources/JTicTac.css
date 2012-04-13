@@ -1,0 +1,12 @@
+.root{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Verdana";
+    /*
+    -fx-base: gray;
+    -fx-background: gray;
+    */
+}
+
+.button{
+    -fx-border-radius: 3;
+}

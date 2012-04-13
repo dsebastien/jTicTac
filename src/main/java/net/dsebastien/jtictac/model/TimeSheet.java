@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Represents the timesheet.
+ * @author Sebastien Dubois -- dSebastien
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -14,7 +14,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.File;
+import java.util.ResourceBundle;
 
+/**
+ * Configuration singleton.
+ * Use to load/save configuration & data.
+ * @author Sebastien Dubois -- dSebastien
+ */
 public class Configuration {
     private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
     private static final Configuration INSTANCE = new Configuration();
@@ -25,6 +31,7 @@ public class Configuration {
     private Marshaller jaxbMarshaller;
 
     private TimeSheet timeSheet;
+    private ResourceBundle resourceBundle;
 
     private final static String CONFIG_PATH_DATA_FILE = "path.data.file";
     private final static String CONFIG_FILE = "config.properties";
@@ -32,6 +39,7 @@ public class Configuration {
     private final static String CONFIG_PATH_SYSTEM_TRAY_ICON = "path.system.tray.icon";
     private final static String CONFIG_APPLICATION_NAME = "application.name";
     private final static String CONFIG_APPLICATION_VERSION = "application.version";
+    private final static String CONFIG_RESOURCE_BUNDLE_NAME = "resource.bundle.name";
     
     private Configuration(){
         LOGGER.info("Loading configuration");
@@ -68,8 +76,19 @@ public class Configuration {
         return new File(config.getString(CONFIG_PATH_DATA_FILE));
     }
     
-    public Image getSystemTrayIcon(){
+    public java.awt.Image getSystemTrayIcon(){
         return Toolkit.getDefaultToolkit().getImage(config.getString(CONFIG_PATH_SYSTEM_TRAY_ICON));
+    }
+    
+    public String getApplicationIconPath(){
+        return config.getString(CONFIG_PATH_SYSTEM_TRAY_ICON);
+    }
+
+    public ResourceBundle getResourceBundle(){
+        if(resourceBundle == null){
+            resourceBundle = ResourceBundle.getBundle(config.getString(CONFIG_RESOURCE_BUNDLE_NAME));
+        }
+        return resourceBundle;
     }
     
     public String getDateTimePattern(){
@@ -80,7 +99,7 @@ public class Configuration {
         return DateTimeFormat.forPattern(getDateTimePattern());
     }
 
-    //todo review
+    //todo review/put somewhere else
     public TimeSheet loadTimeSheet(){
         if(timeSheet == null){ // initialize
             LOGGER.info("Loading timesheet data");

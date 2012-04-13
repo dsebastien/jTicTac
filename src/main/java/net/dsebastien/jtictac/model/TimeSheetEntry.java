@@ -1,27 +1,19 @@
 package net.dsebastien.jtictac.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import net.dsebastien.jtictac.config.Configuration;
 import net.dsebastien.jtictac.utils.DateTimeXmlAdapter;
 import net.dsebastien.jtictac.utils.DurationXmlAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
 
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * An entry in the timesheet.
+ * @author Sebastien Dubois -- dSebastien
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TimeSheetEntry {

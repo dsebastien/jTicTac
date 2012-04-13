@@ -30,3 +30,4 @@
 
 # Links
 * FXML reference: http://fxexperience.com/wp-content/uploads/2011/08/Introducing-FXML.pdf
+* JavaFX 2.0 CSS reference: http://docs.oracle.com/javafx/2.0/api/javafx/scene/doc-files/cssref.html

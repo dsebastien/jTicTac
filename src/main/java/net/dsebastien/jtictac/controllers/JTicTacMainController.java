@@ -1,36 +1,25 @@
 package net.dsebastien.jtictac.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import net.dsebastien.jtictac.config.Configuration;
 import net.dsebastien.jtictac.model.TimeSheet;
 import net.dsebastien.jtictac.model.TimeSheetEntry;
-import org.javafxdata.control.TableViewFactory;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * @author Sebastien Dubois -- dSebastien
@@ -40,22 +29,37 @@ public class JTicTacMainController implements Initializable {
 
     private final PeriodFormatter hoursMinutesPeriodFormatter = new PeriodFormatterBuilder()
             .appendHours()
-            .appendSuffix(" hour", " hours")
+            .appendSuffix("h", "h")
             .appendSeparator(", ")
             .appendMinutes()
-            .appendSuffix(" minute", " minutes")
+            .appendSuffix("m", "m")
             .appendSeparator(", ")
             .appendSeconds()
-            .appendSuffix(" second", " seconds")
+            .appendSuffix("s", "s")
             .toFormatter();
 
     private final DateTimeFormatter dateTimeFormatter = Configuration.getInstance().getDateTimeFormatter();
 
     @FXML
     private TableView<TimeSheetEntry> tblTimeSheet;
+    @FXML
+    private TableColumn<TimeSheetEntry,String> tColTask;
+    @FXML
+    private TableColumn<TimeSheetEntry,String> tColDuration;
+    @FXML
+    private TableColumn<TimeSheetEntry,String> tColDate;
 
     @FXML
-    private StackPane stackPane;
+    private StackPane tableContainer;
+
+    @FXML
+    private TextField txtTask;
+
+    @FXML
+    private Slider sliderDuration;
+
+    @FXML
+    private ToggleButton toggleWholeDay;
 
     private TimeSheetEntry selectedTimeSheetEntry;
 
@@ -66,26 +70,35 @@ public class JTicTacMainController implements Initializable {
     @FXML
     private void handleButtonClearAction(final ActionEvent event) {
         LOGGER.info("Button Clear clicked!");
+        //todo implement
     }
 
     @FXML
-    private void handleButtonAddAction(final ActionEvent event) {
-        LOGGER.info("Button Add clicked!");
+    private void handleButtonSaveAction(final ActionEvent event) {
+        LOGGER.info("Button Save clicked!");
+        //todo implement
+    }
+
+    @FXML
+    private void handleButtonResetAction(final ActionEvent event) {
+        LOGGER.info("Button Reset clicked!");
+        //todo implement
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //S - The type of the TableView generic type (i.e. S == TableView<S>)
-        //T - The type of the content in all cells in this TableColumn.
+    public void initialize(final URL url, final ResourceBundle rb) {
+        // alternative if adding the columns programmatically
+        //TableColumn<TimeSheetEntry,String> tColTask = new TableColumn("Task");
+        //TableColumn<TimeSheetEntry,String> tColDuration = new TableColumn("Duration");
+        //TableColumn<TimeSheetEntry,String> tColDate = new TableColumn("Date");
 
-        tblTimeSheet = new TableView<TimeSheetEntry>();
+        tColTask.setEditable(false);
+        tColDuration.setEditable(false);
+        tColDate.setEditable(false);
 
-        // todo replace by resource bundle usage
-
-        // init columns + cell factory
-        TableColumn<TimeSheetEntry,String> tColTask = new TableColumn("Task");
-        TableColumn<TimeSheetEntry,String> tColDuration = new TableColumn("Duration");
-        TableColumn<TimeSheetEntry,String> tColDate = new TableColumn("Date");
+        tColTask.setPrefWidth(400);
+        tColDuration.setPrefWidth(100);
+        tColDate.setPrefWidth(80);
 
         tColTask.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TimeSheetEntry, String>, ObservableValue<String>>() {
             @Override
@@ -119,27 +132,13 @@ public class JTicTacMainController implements Initializable {
         //tColDate.setCellValueFactory(new PropertyValueFactory<TimeSheetEntry, DateTime>("DateProperty"));
         //tColDuration.setCellValueFactory(new PropertyValueFactory<TimeSheetEntry, Duration>("DurationProperty"));
 
-        tblTimeSheet.getColumns().addAll(tColTask, tColDuration, tColDate);
+        // alternative if adding the columns programmatically
+        //tblTimeSheet.getColumns().addAll(tColTask, tColDuration, tColDate);
 
-        // bind data
+        tblTimeSheet.setEditable(false);
+
+        // set the data
         TimeSheet timeSheet = Configuration.getInstance().loadTimeSheet();
         tblTimeSheet.setItems(FXCollections.observableArrayList(timeSheet.getEntries()));
-
-
-
-
-        /*
-        tblTimeSheet = TableViewFactory.
-                create(TimeSheetEntry.class, timeSheet.getEntries()).selectColumns("Task", "Duration", "Date").buildTableView();
-        
-        for(TableColumn column: tblTimeSheet.getColumns()){
-            System.out.println(column);
-        }
-        */
-
-
-
-
-        stackPane.getChildren().add(tblTimeSheet);
     }
 }

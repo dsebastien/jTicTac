@@ -94,6 +94,7 @@
                 <configuration>
                     <target>${version.java}</target>
                     <source>${version.java}</source>
+                    <encoding>UTF-8</encoding><!-- try to force encoding -->
                     <optimize>true</optimize>
                     <showWarnings>true</showWarnings>
                 </configuration>
@@ -158,6 +159,16 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
+                        <manifestEntries>
+                            <JavaFX-Version>2.0</JavaFX-Version>
+                            <Main-Class>net.dsebastien.jtictac.JTicTac</Main-Class>
+                            <implementation-vendor>dSebastien</implementation-vendor>
+                            <implementation-title>${project.name}</implementation-title>
+                            <implementation-version>1.0</implementation-version>
+                            <JavaFX-Application-Class>net.dsebastien.jtictac.JTicTac</JavaFX-Application-Class>
+                            <JavaFX-Class-Path></JavaFX-Class-Path>
+                        </manifestEntries>
+
                         <!-- Manifest configuration -->
                         <manifest>
                             <addClasspath>true</addClasspath>
@@ -170,6 +181,25 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <!-- Include FXML resources -->
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>

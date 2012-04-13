@@ -2,10 +2,12 @@ package net.dsebastien.jtictac.utils;
 
 import org.joda.time.Interval;
 
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-@XmlTransient
+/**
+ * Helper class for JAXB (adds support for JodaTime's {@link Interval} class.
+ * @author Sebastien Dubois -- dSebastien
+ */
 public class IntervalXmlAdapter extends XmlAdapter<String, Interval>{
 
     @Override

@@ -1,12 +1,13 @@
 package net.dsebastien.jtictac.utils;
 
 import org.joda.time.Duration;
-import org.joda.time.Interval;
 
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-@XmlTransient
+/**
+ * Helper class for JAXB (adds support for JodaTime's {@link Duration} class.
+ * @author Sebastien Dubois -- dSebastien
+ */
 public class DurationXmlAdapter extends XmlAdapter<Long, Duration> {
 
     @Override

@@ -4,10 +4,12 @@
 *.iml
 *.ipr
 *.iws
+*.bak
 .classpath
 .project
 target
 bin
 build
 java.exe.stackdump
+.lock
 data.xml

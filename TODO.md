@@ -1,13 +1,15 @@
 - GUI
-    - fill the table
-    - make the table sortable
     - add entry: task, duration, (current date)
     - add entry: task, duration, date
     - add entry: task, (whole day), (current date)
     - smart/quick add entry: textfield + tags
     - task: auto completion --> http://blog.ngopal.com.np/2011/07/04/autofill-textbox-with-filtermode-in-javafx-2-0-custom-control/
         - store list in text file next to the data (or also xml?)
-- add check: only one instance of the app!
+- handle internationalization
+    - add option in the tray menu
+    - set the locale
+    - save the settings to the config file
+- add button icons
 - add global hotkeys
     - add task
     - show/hide GUI
@@ -26,3 +28,4 @@
 - add "About..." screen
 - add tray messages when saving, when loaded, etc
 - add autoupdater
+- add tooltips

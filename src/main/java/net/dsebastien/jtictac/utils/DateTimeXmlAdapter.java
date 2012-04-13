@@ -2,11 +2,13 @@ package net.dsebastien.jtictac.utils;
 
 import org.joda.time.DateTime;
 
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.Date;
 
-@XmlTransient
+/**
+ * Helper class for JAXB (adds support for JodaTime's {@link DateTime} class.
+ * @author Sebastien Dubois -- dSebastien
+ */
 public class DateTimeXmlAdapter extends XmlAdapter<Date,DateTime> {
 
     @Override
