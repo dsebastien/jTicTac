@@ -55,9 +55,14 @@ public class JTicTacMainController implements Initializable {
     private TableColumn<TimeSheetEntry,String> tColDuration;
     @FXML
     private TableColumn<TimeSheetEntry,String> tColDate;
+    @FXML
+    private TableColumn<TimeSheetEntry,String> tColComment;
 
     @FXML
     private TextField txtTask;
+
+    @FXML
+    private TextField txtComment;
 
     @FXML
     private Slider sliderDuration;
@@ -138,6 +143,8 @@ public class JTicTacMainController implements Initializable {
 
         timeSheetEntry.setDuration(new Duration(duration));
 
+        timeSheetEntry.setComment(txtComment.getText());
+
         final TimeSheet timeSheet = Configuration.getInstance().loadTimeSheet();
         timeSheet.addEntry(timeSheetEntry);
 
@@ -155,6 +162,7 @@ public class JTicTacMainController implements Initializable {
         sliderDuration.setValue(0);
         sliderDuration.setDisable(false);
         toggleWholeDay.setSelected(false);
+        txtComment.setText("");
     }
 
     /**
@@ -179,11 +187,6 @@ public class JTicTacMainController implements Initializable {
     public void initialize(final URL url, final ResourceBundle rb) {
         //tblTimeSheet.selectionModelProperty().set(TableView.TableViewSelectionModel);
         tblTimeSheet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        // alternative if adding the columns programmatically
-        //TableColumn<TimeSheetEntry,String> tColTask = new TableColumn("Task");
-        //TableColumn<TimeSheetEntry,String> tColDuration = new TableColumn("Duration");
-        //TableColumn<TimeSheetEntry,String> tColDate = new TableColumn("Date");
 
         tColTask.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TimeSheetEntry, String>, ObservableValue<String>>() {
             @Override
@@ -212,13 +215,14 @@ public class JTicTacMainController implements Initializable {
             }
         });
 
-        // alternative if the data model is observable (with Java FX classes such as SimpleStringProperty, SimpleObjectProperty, ...)
-        //tColTask.setCellValueFactory(new PropertyValueFactory<TimeSheetEntry,String>("TaskProperty"));
-        //tColDate.setCellValueFactory(new PropertyValueFactory<TimeSheetEntry, DateTime>("DateProperty"));
-        //tColDuration.setCellValueFactory(new PropertyValueFactory<TimeSheetEntry, Duration>("DurationProperty"));
-
-        // alternative if adding the columns programmatically
-        //tblTimeSheet.getColumns().addAll(tColTask, tColDuration, tColDate);
+        tColComment.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TimeSheetEntry, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<TimeSheetEntry, String> timeSheetEntryStringCellDataFeatures) {
+                final SimpleStringProperty retVal = new SimpleStringProperty();
+                retVal.set(timeSheetEntryStringCellDataFeatures.getValue().getComment());
+                return retVal;
+            }
+        });
 
         tblTimeSheet.setEditable(false);
 

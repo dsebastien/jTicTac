@@ -33,6 +33,11 @@ public class TimeSheetEntry {
     private DateTime date;
 
     /**
+     * Comment about the entry.
+     */
+    private String comment;
+
+    /**
      * Callback automatically invoked by JAXB after unmarshalling is over.
      * Doc: http://docs.oracle.com/javase/6/docs/api/javax/xml/bind/Unmarshaller.html#unmarshalEventCallback
      * @param unmarshaller
@@ -59,6 +64,11 @@ public class TimeSheetEntry {
         return this;
     }
 
+    public TimeSheetEntry setComment(final String comment){
+        this.comment = comment;
+        return this;
+    }
+
     @XmlAttribute
     public String getTask(){
         return task;
@@ -74,6 +84,11 @@ public class TimeSheetEntry {
     @XmlJavaTypeAdapter(DateTimeXmlAdapter.class)
     public DateTime getDate(){
         return date;
+    }
+
+    @XmlAttribute
+    public String getComment(){
+        return comment;
     }
 
     //todo implement hashCode and equals

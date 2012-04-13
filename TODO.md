@@ -1,5 +1,4 @@
 - GUI
-    - comment in the entries
     - implement validation
         - task: not empty
         - description: optional
