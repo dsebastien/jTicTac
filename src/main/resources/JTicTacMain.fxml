@@ -8,94 +8,99 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="mainContainer" maxHeight="400.0" maxWidth="600.0" minHeight="220.0" minWidth="600.0" prefHeight="220.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="net.dsebastien.jtictac.controllers.JTicTacMainController">
+<BorderPane id="mainContainer" maxHeight="400.0" maxWidth="600.0" minHeight="200.0" minWidth="600.0" prefHeight="200.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="net.dsebastien.jtictac.controllers.JTicTacMainController">
   <center>
     <Accordion id="accordion">
       <effect>
         <DropShadow />
       </effect>
       <expandedPane>
-          <TitledPane fx:id="titledPaneAddEntry" animated="true" text="%addentry.title">
-              <content>
-                  <GridPane id="gridPane1" hgap="5.0" vgap="10.0">
+        <TitledPane fx:id="titledPaneAddEntry" text="%addentry.title">
+          <content>
+            <GridPane id="gridPane1" hgap="5.0" vgap="10.0">
+              <children>
+                <Label text="%addentry.task" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <labelFor>
+                    <TextField fx:id="txtTask" promptText="%addentry.task.promptText" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  </labelFor>
+                </Label>
+                <fx:reference source="txtTask" />
+                <Label text="%addentry.duration" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                  <labelFor>
+                    <HBox fx:id="hBoxDuration" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <children>
-                          <Label text="%addentry.task" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                              <labelFor>
-                                  <TextField fx:id="txtTask" promptText="%addentry.task.promptText" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                              </labelFor>
-                          </Label>
-                          <fx:reference source="txtTask" />
-                          <Label text="%addentry.duration" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                              <labelFor>
-                                  <HBox fx:id="hBoxDuration" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                      <children>
-                                          <Slider fx:id="sliderDuration" blockIncrement="60.0" majorTickUnit="60.0" max="480.0" minorTickCount="30" showTickLabels="true" snapToTicks="true" HBox.hgrow="ALWAYS" />
-                                          <ToggleButton fx:id="toggleWholeDay" text="%addentry.duration.wholeday">
-                                              <HBox.margin>
-                                                  <Insets left="10.0" />
-                                              </HBox.margin>
-                                          </ToggleButton>
-                                      </children>
-                                  </HBox>
-                              </labelFor>
-                          </Label>
-                          <fx:reference source="hBoxDuration" />
-                          <Label text="%addentry.date" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                              <labelFor>
-                                  <Label fx:id="lblDateSelection" text="%addentry.date.select" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              </labelFor>
-                          </Label>
-                          <fx:reference source="lblDateSelection" />
-                          <HBox id="hBoxActions" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                              <children>
-                                  <Button id="btnSave" onAction="#handleButtonSaveAction" text="%addentry.save" />
-                                  <Button id="btnReset" onAction="#handleButtonResetAction" text="%addentry.reset" />
-                              </children>
-                          </HBox>
+                        <Slider fx:id="sliderDuration" blockIncrement="60.0" majorTickUnit="60.0" max="480.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" HBox.hgrow="ALWAYS" />
+                        <ToggleButton fx:id="toggleWholeDay" onAction="#handleToggleWholeDayAction" text="%addentry.duration.wholeday">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </ToggleButton>
                       </children>
-                      <columnConstraints>
-                          <ColumnConstraints minWidth="10.0" />
-                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-                      </columnConstraints>
-                      <padding>
-                          <Insets left="5.0" right="5.0" top="5.0" />
-                      </padding>
-                      <rowConstraints>
-                          <RowConstraints fillHeight="false" minHeight="25.0" vgrow="NEVER" />
-                          <RowConstraints fillHeight="false" vgrow="NEVER" />
-                          <RowConstraints fillHeight="false" vgrow="NEVER" />
-                          <RowConstraints fillHeight="false" vgrow="NEVER" />
-                          <RowConstraints fillHeight="false" vgrow="NEVER" />
-                      </rowConstraints>
-                  </GridPane>
-              </content>
-          </TitledPane>
+                    </HBox>
+                  </labelFor>
+                </Label>
+                <fx:reference source="hBoxDuration" />
+                <Label text="%addentry.date" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <labelFor>
+                    <Label fx:id="lblDateSelection" text="%addentry.date.select" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  </labelFor>
+                </Label>
+                <fx:reference source="lblDateSelection" />
+                <HBox id="hBoxActions" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <children>
+                    <Button id="btnSave" onAction="#handleButtonSaveAction" text="%addentry.save" />
+                    <Button id="btnReset" onAction="#handleButtonResetAction" text="%addentry.reset" />
+                  </children>
+                </HBox>
+              </children>
+              <columnConstraints>
+                <ColumnConstraints minWidth="10.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+              </columnConstraints>
+              <padding>
+                <Insets left="5.0" right="5.0" top="5.0" />
+              </padding>
+              <rowConstraints>
+                <RowConstraints fillHeight="false" minHeight="25.0" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" vgrow="NEVER" />
+              </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
       </expandedPane>
       <panes>
         <fx:reference source="titledPaneAddEntry" />
-        <TitledPane fx:id="titledPaneTimeSheet" animated="true" text="%timesheet.title">
+        <TitledPane fx:id="titledPaneTimeSheet" text="%timesheet.title">
           <content>
-                <ScrollPane id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="140" minHeight="140">
-                  <content>
-                    <TableView fx:id="tblTimeSheet">
-                        <columns>
-                            <TableColumn fx:id="tColTask" text="%timesheet.task" />
-                            <TableColumn fx:id="tColDuration" text="%timesheet.duration" />
-                            <TableColumn fx:id="tColDate" text="%timesheet.date" />
-                        </columns>
-                    </TableView>
-                  </content>
-                </ScrollPane>
+            <BorderPane fx:id="borderPaneTimeSheet">
+                <bottom>
+                    <ToolBar id="toolBar">
+                        <items>
+                            <Button id="btnRemoveAllItems" onAction="#handleButtonRemoveAllItemsAction" text="%action.remove.allItems" />
+                            <Button id="btnRemoveSelectedItems" onAction="#handleButtonRemoveSelectedItemsAction" text="%action.remove.selectedItems" />
+                        </items>
+                    </ToolBar>
+                </bottom>
+                <center>
+                    <ScrollPane fx:id="scrollPaneTableTimeSheet" fitToHeight="true" fitToWidth="true" minHeight="120.0" prefHeight="120.0">
+                        <content>
+                            <TableView fx:id="tblTimeSheet">
+                                <columns>
+                                    <TableColumn text="%timesheet.task" fx:id="tColTask" minWidth="100" prefWidth="400" editable="false" />
+                                    <TableColumn text="%timesheet.duration" fx:id="tColDuration" minWidth="100" prefWidth="100" editable="false" />
+                                    <TableColumn text="%timesheet.date" fx:id="tColDate" minWidth="80" prefWidth="80" editable="false" />
+                                </columns>
+                            </TableView>
+                        </content>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
           </content>
         </TitledPane>
       </panes>
     </Accordion>
   </center>
-  <bottom>
-      <ToolBar id="toolBar">
-            <items>
-              <Button id="btnClear" onAction="#handleButtonClearAction" text="%action.clear" />
-            </items>
-          </ToolBar>
-      </bottom>
 </BorderPane>

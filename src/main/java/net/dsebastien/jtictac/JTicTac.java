@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import net.dsebastien.jtictac.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ import java.util.ResourceBundle;
  */
 public class JTicTac extends Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(JTicTac.class);
-    private boolean isVisible = false;
 
     /**
      * Entry point.
@@ -56,7 +56,10 @@ public class JTicTac extends Application {
         if (!firstInstance) {
             LOGGER.error("Another instance is already running");
             ResourceBundle resourceBundle = Configuration.getInstance().getResourceBundle();
-            name.antonsmirnov.javafx.dialog.Dialog.showError(resourceBundle.getString("messages.errors.alreadystarted.title"), resourceBundle.getString("messages.errors.alreadystarted"));
+            name.antonsmirnov.javafx.dialog.Dialog.showError(
+                    resourceBundle.getString("messages.errors.alreadystarted.title"),
+                    resourceBundle.getString("messages.errors.alreadystarted"
+            ));
         } else {
             // initialize the timesheet
             Configuration.getInstance().loadTimeSheet();
@@ -82,81 +85,18 @@ public class JTicTac extends Application {
             stage.getIcons().add(new Image(Configuration.getInstance().getApplicationIconPath()));
 
             stage.show(); // todo remove
-            // scene: addmnemonic, getaccelerators
+            // todo add to scene: addmnemonic, getaccelerators
 
             // Tray icon
-            final TrayIcon trayIcon;
+            Configuration.getInstance().getTrayIcon();
 
-            if (SystemTray.isSupported()) {
-                SystemTray tray = SystemTray.getSystemTray();
-                MouseListener mouseListener = new MouseListener() {
-
-                    public void mouseClicked(final MouseEvent e) {
-                        Platform.runLater(new Runnable() {
-                            public void run() {
-                                /*
-                                if(isVisible){
-                                    stage.hide();
-                                }else{
-                                    stage.show();
-                                }
-                                */
-                            }
-                        });
-                    }
-
-                    public void mouseEntered(final MouseEvent e) {
-                    }
-
-                    public void mouseExited(final MouseEvent e) {
-                    }
-
-                    public void mousePressed(final MouseEvent e) {
-                    }
-
-                    public void mouseReleased(final MouseEvent e) {
-                    }
-                };
-
-                ActionListener exitListener = new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        LOGGER.info("Exiting...");
-                        System.exit(0);
-                    }
-                };
-
-                PopupMenu popup = new PopupMenu();
-                MenuItem defaultItem = new MenuItem("Exit");
-                defaultItem.addActionListener(exitListener);
-                popup.add(defaultItem);
-
-                trayIcon = new TrayIcon(Configuration.getInstance().getSystemTrayIcon(), Configuration.getInstance().getApplicationName(), popup);
-
-                ActionListener actionListener = new ActionListener() {
-                    public void actionPerformed(final ActionEvent e) {
-                        trayIcon.displayMessage("Action Event",
-                                "An Action Event Has Been Performed!",
-                                TrayIcon.MessageType.INFO);
-                    }
-                };
-
-                trayIcon.setImageAutoSize(true);
-                trayIcon.addActionListener(actionListener);
-                trayIcon.addMouseListener(mouseListener);
-
-                try {
-                    tray.add(trayIcon);
-                } catch (AWTException e) {
-                    LOGGER.error("The System Tray icon could not be added!", e);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.exit();
                     System.exit(0);
-                    // todo be more polite
                 }
-            } else {
-                LOGGER.error("System Tray not supported! Exiting...");
-                // todo log additional info (platform etc)
-                System.exit(0);
-                // todo be more polite
-            }
+            });
         }
     }
 

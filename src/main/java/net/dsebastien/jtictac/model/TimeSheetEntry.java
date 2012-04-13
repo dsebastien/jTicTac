@@ -75,4 +75,6 @@ public class TimeSheetEntry {
     public DateTime getDate(){
         return date;
     }
+
+    //todo implement hashCode and equals
 }

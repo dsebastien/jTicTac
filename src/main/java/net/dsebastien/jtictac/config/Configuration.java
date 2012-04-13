@@ -1,5 +1,6 @@
 package net.dsebastien.jtictac.config;
 
+import javafx.application.Platform;
 import net.dsebastien.jtictac.model.TimeSheet;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -13,7 +14,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -32,6 +36,7 @@ public class Configuration {
 
     private TimeSheet timeSheet;
     private ResourceBundle resourceBundle;
+    private TrayIcon trayIcon;
 
     private final static String CONFIG_PATH_DATA_FILE = "path.data.file";
     private final static String CONFIG_FILE = "config.properties";
@@ -58,6 +63,7 @@ public class Configuration {
         } catch (JAXBException e) {
             LOGGER.error("Could not initialize JAXB context",e);
         }
+        LOGGER.info("Configuration loaded");
     }
 
     public static Configuration getInstance(){
@@ -84,6 +90,10 @@ public class Configuration {
         return config.getString(CONFIG_PATH_SYSTEM_TRAY_ICON);
     }
 
+    /**
+     * Gets the application's resource bundle
+     * @return the application's resource bundle
+     */
     public ResourceBundle getResourceBundle(){
         if(resourceBundle == null){
             resourceBundle = ResourceBundle.getBundle(config.getString(CONFIG_RESOURCE_BUNDLE_NAME));
@@ -134,4 +144,59 @@ public class Configuration {
         return retVal;
     }
 
+    /**
+     * Initialize/return the tray icon.
+     * @return the tray icon or null if it could not be created
+     */
+    public TrayIcon getTrayIcon(){
+        if(trayIcon != null){
+            return trayIcon;
+        }
+
+        if (SystemTray.isSupported()) {
+            SystemTray tray = SystemTray.getSystemTray();
+            PopupMenu popup = new PopupMenu();
+            MenuItem menuItemExit = new MenuItem(getResourceBundle().getString("menu.exit"));
+            /*
+            Menu menuLanguage = new Menu(getResourceBundle().getString("menu.language"));
+            MenuItem menuItemFrench = new MenuItem(getResourceBundle().getString("menu.language.french"));
+            menuItemFrench.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Locale.setDefault(Locale.FRENCH);
+                    ResourceBundle.clearCache();
+                }
+            });
+            MenuItem menuItemEnligh = new MenuItem(getResourceBundle().getString("menu.language.english"));
+
+            menuLanguage.add(menuItemFrench);
+            menuLanguage.add(menuItemEnligh);
+
+            popup.add(menuLanguage);
+            */
+            
+            menuItemExit.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    LOGGER.info("Exiting...");
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
+            popup.add(menuItemExit);
+
+            // Tray icon
+            trayIcon = new TrayIcon(Configuration.getInstance().getSystemTrayIcon(), Configuration.getInstance().getApplicationName(), popup);
+            trayIcon.setImageAutoSize(true);
+            trayIcon.setToolTip(getResourceBundle().getString("tooltip.trayIcon"));
+
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e) {
+                LOGGER.error("The System Tray icon could not be added!", e);
+            }
+        } else {
+            LOGGER.error("System Tray not supported!");
+        }
+        return trayIcon;
+    }
 }
