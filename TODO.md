@@ -1,33 +1,27 @@
-- GUI
-    - implement validation
-        - task: not empty
-        - description: optional
-        - duration: > 0
-    - task: auto completion --> http://blog.ngopal.com.np/2011/07/04/autofill-textbox-with-filtermode-in-javafx-2-0-custom-control/
-        - store list in text file next to the data (or also xml?)
-- add button icons
-- add global hotkeys
+- add hotkeys
     - add task
-    - show/hide GUI
-    - exit
     - copy timesheet data to clipboard
+- make the table view editable (at least for some columns)
 - system tray
     - change menu
-        - add "save"
-        - add "reload"
         - add "copy timesheet data to clipboard"
-    - change icon
-- add templates for timesheet entries
 - add toString
 - add hashCode
 - add equals
-- add "About..." screen
-- add tray messages when saving, when loaded, etc
-- add autoupdater
-- add logfile
+- add "About..." screen (Popup -> http://docs.oracle.com/javafx/2.0/api/javafx/stage/Popup.html)
+- add button icons
 - handle internationalization
     - add option in the tray menu
     - set the locale
     - save the settings to the config file
     - translate to french
-- make the table view editable
+- task: auto completion
+    - textfield with a listview. date of the list view loaded from a text file next to the data (or also xml?)
+    - textfield on keytyped -> invoke filter on listview; if tab: autocomplete
+    - +popup to edit the list & update the file
+- GUI
+    - implement validation
+        - task: not empty
+        - description: optional
+        - duration: > 0
+- add logfile

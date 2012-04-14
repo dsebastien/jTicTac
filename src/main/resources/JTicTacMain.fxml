@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="mainContainer" maxHeight="400.0" maxWidth="600.0" minHeight="230.0" prefHeight="230.0" minWidth="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="net.dsebastien.jtictac.controllers.JTicTacMainController">
+<BorderPane id="mainContainer" maxHeight="400.0" maxWidth="600.0" minHeight="230.0" minWidth="600.0" prefHeight="230.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="net.dsebastien.jtictac.controllers.JTicTacMainController">
   <center>
     <Accordion id="accordion">
       <effect>
@@ -46,16 +46,16 @@
                   </labelFor>
                 </Label>
                 <fx:reference source="lblDateSelection" />
-                  <Label text="%addentry.comment" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                      <labelFor>
-                          <TextField fx:id="txtComment" promptText="%addentry.comment.promptText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                      </labelFor>
-                  </Label>
-                  <fx:reference source="txtComment" />
-                <HBox id="hBoxActions" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <Label text="%addentry.comment" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                  <labelFor>
+                    <TextField fx:id="txtComment" promptText="%addentry.comment.promptText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  </labelFor>
+                </Label>
+                <fx:reference source="txtComment" />
+                <HBox id="hBoxActions" alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                   <children>
-                    <Button id="btnSave" onAction="#handleButtonSaveAction" text="%addentry.save" />
-                    <Button id="btnReset" onAction="#handleButtonResetAction" text="%addentry.reset" />
+                    <Button fx:id="btnSave" onAction="#handleButtonSaveAction" text="%addentry.save" />
+                    <Button fx:id="btnReset" onAction="#handleButtonResetAction" text="%addentry.reset" />
                   </children>
                 </HBox>
               </children>
@@ -83,28 +83,28 @@
         <TitledPane fx:id="titledPaneTimeSheet" text="%timesheet.title">
           <content>
             <BorderPane fx:id="borderPaneTimeSheet">
-                <bottom>
-                    <ToolBar id="toolBar">
-                        <items>
-                            <Button id="btnRemoveAllItems" onAction="#handleButtonRemoveAllItemsAction" text="%action.remove.allItems" />
-                            <Button id="btnRemoveSelectedItems" onAction="#handleButtonRemoveSelectedItemsAction" text="%action.remove.selectedItems" />
-                        </items>
-                    </ToolBar>
-                </bottom>
-                <center>
-                    <ScrollPane fx:id="scrollPaneTableTimeSheet" fitToHeight="true" fitToWidth="true" minHeight="150.0" prefHeight="150.0">
-                        <content>
-                            <TableView fx:id="tblTimeSheet">
-                                <columns>
-                                    <TableColumn text="%timesheet.task" fx:id="tColTask" minWidth="100" prefWidth="250" editable="false" />
-                                    <TableColumn text="%timesheet.duration" fx:id="tColDuration" minWidth="100" prefWidth="100" editable="false" />
-                                    <TableColumn text="%timesheet.date" fx:id="tColDate" minWidth="80" prefWidth="80" editable="false" />
-                                    <TableColumn text="%timesheet.comment" fx:id="tColComment" editable="false" minWidth="100" prefWidth="160" />
-                                </columns>
-                            </TableView>
-                        </content>
-                    </ScrollPane>
-                </center>
+              <bottom>
+                <ToolBar id="toolBar">
+                  <items>
+                    <Button fx:id="btnRemoveAllItems" onAction="#handleButtonRemoveAllItemsAction" text="%action.remove.allItems" />
+                    <Button fx:id="btnRemoveSelectedItems" onAction="#handleButtonRemoveSelectedItemsAction" text="%action.remove.selectedItems" />
+                  </items>
+                </ToolBar>
+              </bottom>
+              <center>
+                <ScrollPane fx:id="scrollPaneTableTimeSheet" fitToHeight="true" fitToWidth="true" minHeight="150.0" prefHeight="150.0">
+                  <content>
+                    <TableView fx:id="tblTimeSheet">
+                      <columns>
+                        <TableColumn editable="false" minWidth="100.0" prefWidth="250.0" text="%timesheet.task" fx:id="tColTask" />
+                        <TableColumn editable="false" minWidth="100.0" prefWidth="100.0" text="%timesheet.duration" fx:id="tColDuration" />
+                        <TableColumn editable="false" minWidth="80.0" text="%timesheet.date" fx:id="tColDate" />
+                        <TableColumn editable="false" minWidth="100.0" prefWidth="160.0" text="%timesheet.comment" fx:id="tColComment" />
+                      </columns>
+                    </TableView>
+                  </content>
+                </ScrollPane>
+              </center>
             </BorderPane>
           </content>
         </TitledPane>

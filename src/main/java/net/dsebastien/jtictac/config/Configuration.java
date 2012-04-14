@@ -163,7 +163,7 @@ public class Configuration {
             menuItemFrench.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Locale.setDefault(Locale.FRENCH);
+                    Locale.setDefault(new Locale("fr","BE"));
                     ResourceBundle.clearCache();
                 }
             });

@@ -34,6 +34,17 @@
             </roles>
         </developer>
     </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/dsebastien/jTicTac/issues</url>
+    </issueManagement>
+
+    <scm>
+        <url>git@github.com:dsebastien/jTicTac.git</url>
+        <connection>scm:git:git@github.com:dsebastien/jTicTac.git</connection>
+        <developerConnection>scm:git:git@github.com:dsebastien/jTicTac.git</developerConnection>
+    </scm>
 	
 	<properties>
         <!-- Java -->

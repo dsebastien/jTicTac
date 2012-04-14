@@ -19,15 +19,6 @@
 * Copy Java Fx dlls from install\rt\bin to mvn repository (com > oracle > ...)
 * Download install the scene editor: http://www.oracle.com/technetwork/java/javafx/tools/index.html
 
-# JNLP config:
-* password: fCVd4SHB3c!
-* name: Sebastien Dubois
-* organizational unit: dsebastien.net
-* organization: -
-* city: Jurbise
-* State: Hainaut
-* country: BE
-
 # Links
 * FXML reference: http://fxexperience.com/wp-content/uploads/2011/08/Introducing-FXML.pdf
 * JavaFX 2.0 CSS reference: http://docs.oracle.com/javafx/2.0/api/javafx/scene/doc-files/cssref.html

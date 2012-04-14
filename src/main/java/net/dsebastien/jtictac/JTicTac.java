@@ -68,7 +68,7 @@ public class JTicTac extends Application {
             stage.setTitle(Configuration.getInstance().getApplicationName() + " v" + Configuration.getInstance().getApplicationVersion());
 
             stage.setResizable(false);
-            // primarystage: stagestyle, position, sizetoscene, requestfocus (on show)
+            // primarystage: stagestyle, position, requestfocus (on show)
 
             Parent jTicTacMain = FXMLLoader.load(JTicTac.class.getResource("/JTicTacMain.fxml"), Configuration.getInstance().getResourceBundle());
 
@@ -84,7 +84,7 @@ public class JTicTac extends Application {
 
             stage.getIcons().add(new Image(Configuration.getInstance().getApplicationIconPath()));
 
-            stage.show(); // todo remove
+            stage.show();
             // todo add to scene: addmnemonic, getaccelerators
 
             // Tray icon
