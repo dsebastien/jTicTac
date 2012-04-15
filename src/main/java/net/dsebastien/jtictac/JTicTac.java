@@ -12,12 +12,6 @@ import javafx.stage.WindowEvent;
 import net.dsebastien.jtictac.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
@@ -82,7 +76,8 @@ public class JTicTac extends Application {
             stage.setScene(scene);
             stage.sizeToScene();
 
-            stage.getIcons().add(new Image(Configuration.getInstance().getApplicationIconPath()));
+            // Set the application icon
+            stage.getIcons().add(new Image(Thread.currentThread().getClass().getResourceAsStream(Configuration.getInstance().getApplicationIconPath())));
 
             stage.show();
             // todo add to scene: addmnemonic, getaccelerators

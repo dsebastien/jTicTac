@@ -17,7 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -41,7 +40,7 @@ public class Configuration {
     private final static String CONFIG_PATH_DATA_FILE = "path.data.file";
     private final static String CONFIG_FILE = "config.properties";
     private final static String CONFIG_DATETIME_PATTERN = "datetime.pattern";
-    private final static String CONFIG_PATH_SYSTEM_TRAY_ICON = "path.system.tray.icon";
+    private final static String CONFIG_PATH_APPLICATION_ICON = "path.application.icon";
     private final static String CONFIG_APPLICATION_NAME = "application.name";
     private final static String CONFIG_APPLICATION_VERSION = "application.version";
     private final static String CONFIG_RESOURCE_BUNDLE_NAME = "resource.bundle.name";
@@ -83,11 +82,11 @@ public class Configuration {
     }
     
     public java.awt.Image getSystemTrayIcon(){
-        return Toolkit.getDefaultToolkit().getImage(config.getString(CONFIG_PATH_SYSTEM_TRAY_ICON));
+        return Toolkit.getDefaultToolkit().getImage(Thread.currentThread().getClass().getResource(Configuration.getInstance().getApplicationIconPath()));
     }
     
     public String getApplicationIconPath(){
-        return config.getString(CONFIG_PATH_SYSTEM_TRAY_ICON);
+        return config.getString(CONFIG_PATH_APPLICATION_ICON);
     }
 
     /**

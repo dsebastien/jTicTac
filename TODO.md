@@ -1,3 +1,4 @@
+- take screenshots + upload
 - add hotkeys
     - add task
     - copy timesheet data to clipboard

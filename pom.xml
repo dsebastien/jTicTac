@@ -53,9 +53,6 @@
         <!-- JavaFx -->
         <version.javafx>2.0</version.javafx>
 
-        <!-- DataFX -->
-        <version.datafx>0.0.7-SNAPSHOT</version.datafx>
-
         <!-- Joda Time -->
         <version.jodatime>2.1</version.jodatime>
 
@@ -97,6 +94,7 @@
     </properties>
 
     <build>
+		<finalName>${project.name}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,9 +126,11 @@
                     </execution>
                 </executions>
             </plugin>
+			<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
                 <executions>
                     <execution>
                         <id>install</id>
@@ -141,6 +141,7 @@
                     </execution>
                 </executions>
             </plugin>
+			-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-idea-plugin</artifactId>
@@ -151,26 +152,35 @@
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
             </plugin>
-            <!-- Attach the sources to the archive -->
-            <plugin>
+			<!-- Copies the JavaFX 2 binary libraries (in my case the .dll files). This should be temporary.. -->
+			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
                 <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
+					<execution>
+						<id>unpack-javafx-binlib</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+ 
+						<configuration>
+							<outputDirectory>${project.build.directory}/build/bin</outputDirectory>
+							<markersDirectory>${project.build.directory}/build/bin-markers</markersDirectory>
+							<includeArtifactIds>javafx-bin-x64</includeArtifactIds>
+							<overWriteReleases>false</overWriteReleases>
+						</configuration>
+					</execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
+			<!-- Creates the executable jar file -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.build.directory}/build</outputDirectory>
+					<archive>
+						<manifestEntries>
                             <JavaFX-Version>2.0</JavaFX-Version>
                             <Main-Class>net.dsebastien.jtictac.JTicTac</Main-Class>
                             <implementation-vendor>dSebastien</implementation-vendor>
@@ -179,30 +189,60 @@
                             <JavaFX-Application-Class>net.dsebastien.jtictac.JTicTac</JavaFX-Application-Class>
                             <JavaFX-Class-Path></JavaFX-Class-Path>
                         </manifestEntries>
-
-                        <!-- Manifest configuration -->
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>net.dsebastien.jtictac.JTicTac</mainClass>
-                        </manifest>
-                    </archive>
-                    <includes>
-                        <include>**/**</include>
-                    </includes>
-                </configuration>
-            </plugin>
+					</archive>
+					<!-- we could have used the standard descriptor, but the problem is that we want the jar to be clean and we need to modify the exclusion list
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					-->
+					<descriptors>
+						<descriptor>src/main/assembly/jar.xml</descriptor> <!-- skips Java FX bin libs -->
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- we also copy the files we need in the distribution -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/build</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>${basedir}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>config.properties</include>
+										<include>data.xml</include>
+										<include>run.bat</include>
+										<include>CONTRIBUTORS</include>
+										<include>LICENSE</include>
+										<include>README.MD</include>
+									</includes>
+								</resource>
+							</resources>              
+						</configuration>            
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
 
-        <!-- Include FXML resources -->
         <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>${basedir}/src/main/java</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                </includes>
-            </resource>
             <resource>
                 <filtering>false</filtering>
                 <directory>${basedir}/src/main/resources</directory>
@@ -215,18 +255,23 @@
 
     <dependencies>
         <!-- Java Fx -->
+		<!-- Created manually -->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>javafx</artifactId>
             <version>2.0</version>
             <scope>compile</scope>
         </dependency>
-
-        <!-- Data Fx - http://www.javafxdata.org/ -->
-        <dependency>
-            <groupId>org.datafx</groupId>
-            <artifactId>datafx-core</artifactId>
-            <version>${version.datafx}</version>
+		
+		<!-- 
+			Created manually (jar with all dlls at the root) 
+			Solution explained here: https://forums.oracle.com/forums/thread.jspa?threadID=2307062
+		-->
+		<dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx-bin-x64</artifactId>
+            <version>2.0</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Joda Time -->
@@ -318,13 +363,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!-- DataFX repository -->
-    <repositories>
-        <repository>
-            <id>lodgon.com</id>
-            <name>Lodgon Maven Repository</name>
-            <url>http://maven.lodgon.com/maven2</url>
-        </repository>
-    </repositories>
 </project>
